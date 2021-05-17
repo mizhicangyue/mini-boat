@@ -1,8 +1,8 @@
-import React, { useEffect} from 'react';
+import React, {useEffect} from 'react';
 import request from 'umi-request';
-import { Image, Tag} from 'antd';
+import {Image, Tag} from 'antd';
 import {MessageOutlined, LikeOutlined, StarOutlined} from '@ant-design/icons';
-import ProList from '@ant-design/pro-list';
+import ProList, {ProListProps} from '@ant-design/pro-list';
 import Title from "antd/es/typography/Title";
 
 const IconText = ({icon, text}: { icon: any; text: string }) => (
@@ -26,16 +26,8 @@ const dataSource = [
         title: 'TechUI',
     },
 ];
-const BlogList: any = (props: any) => {
-    useEffect(() => {
-        request('http://192.168.0.110:3030/v1/', {
-            method: 'POST'
-        }).then(res => {
-            console.log(res)
-        })
-    }, []);
+const BlogList: any = (props: ProListProps<any, any>) => {
     return <div style={{textAlign: 'left'}}>
-
         <ProList<{ title: string }>
             itemLayout="vertical"
             rowKey="id"
@@ -57,49 +49,50 @@ const BlogList: any = (props: any) => {
                  </div>
                  </Carousel>**/
             ]}
+            {...props}
             // headerTitle="竖排样式"
-            dataSource={dataSource}
-            metas={{
-                title: {},
-                description: {
-                    render: () => (
-                        <>
-                            <Tag>语雀专栏</Tag>
-                            <Tag>设计语言</Tag>
-                            <Tag>蚂蚁金服</Tag>
-                        </>
-                    ),
-                },
-                actions: {
-                    render: () => [
-                        <IconText icon={StarOutlined} text="156" key="list-vertical-star-o"/>,
-                        <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o"/>,
-                        <IconText icon={MessageOutlined} text="2" key="list-vertical-message"/>,
-                    ],
-                },
-                extra: {
-                    render: () => (
-                        <Image
-                            width={'50%'}
-                            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                        />
-                    ),
-                },
-                content: {
-                    render: () => {
-                        return (
-                            <div onClick={() => {
-                                console.log(props)
-                                window.location.hash='/details';
-                            }}>
-                                段落示意：蚂蚁金服设计平台
-                                design.alipay.com，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台
-                                design.alipay.com，用最小的工作量，无缝接入蚂蚁金服生态提供跨越设计与开发的体验解决方案。
-                            </div>
-                        );
-                    },
-                },
-            }}
+            // dataSource={dataSource}
+            // metas={{
+            //     title: {},
+            //     description: {
+            //         render: () => (
+            //             <>
+            //                 <Tag>语雀专栏</Tag>
+            //                 <Tag>设计语言</Tag>
+            //                 <Tag>蚂蚁金服</Tag>
+            //             </>
+            //         ),
+            //     },
+            //     actions: {
+            //         render: () => [
+            //             <IconText icon={StarOutlined} text="156" key="list-vertical-star-o"/>,
+            //             <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o"/>,
+            //             <IconText icon={MessageOutlined} text="2" key="list-vertical-message"/>,
+            //         ],
+            //     },
+            //     extra: {
+            //         render: () => (
+            //             <Image
+            //                 width={'50%'}
+            //                 src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            //             />
+            //         ),
+            //     },
+            //     content: {
+            //         render: () => {
+            //             return (
+            //                 <div onClick={() => {
+            //                     console.log(props)
+            //                     window.location.hash='/details';
+            //                 }}>
+            //                     段落示意：蚂蚁金服设计平台
+            //                     design.alipay.com，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台
+            //                     design.alipay.com，用最小的工作量，无缝接入蚂蚁金服生态提供跨越设计与开发的体验解决方案。
+            //                 </div>
+            //             );
+            //         },
+            //     },
+            // }}
         />
     </div>
 };
